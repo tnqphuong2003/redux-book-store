@@ -35,7 +35,7 @@ api.interceptors.response.use(
   },
   function (error) {
     console.log("REPONSE ERROR", { error });
-    const message = error.response?.response?.errors?.message || "Unknow error";
+    const message = error.message || "Unknow error";
     return Promise.reject({ message });
   }
 );
