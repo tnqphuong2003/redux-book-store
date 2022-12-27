@@ -16,8 +16,15 @@ api.interceptors.request.use(
     console.log("Starting Request", request);
     return request;
   },
-  function (error) {
-    console.log("REQUEST ERROR", error);
+  // function (error) {
+  //   console.log("REQUEST ERROR", error);
+  // }
+  (error) => {
+    if (!error.response) {
+      console.log("Please check your internet connection.");
+    }
+
+    return Promise.reject(error);
   }
 );
 
@@ -27,9 +34,9 @@ api.interceptors.response.use(
     return response;
   },
   function (error) {
-    error = error.response.data;
-    console.log("RESPONSE ERROR", error);
-    return Promise.reject({ message: error.split("\n")[0] });
+    console.log("REPONSE ERROR", { error });
+    const message = error.response?.response?.errors?.message || "Unknow error";
+    return Promise.reject({ message });
   }
 );
 

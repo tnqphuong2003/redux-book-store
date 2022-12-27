@@ -70,6 +70,7 @@ export const getBooks =
       });
       dispatch(slice.actions.getBooksSuccess(response.data));
     } catch (error) {
+      console.log("error", error.message);
       dispatch(slice.actions.hasError(error.message));
     }
   };
